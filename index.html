@@ -1,0 +1,1088 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía Interactiva: Buenas Prácticas de Manufactura (BPM) - SENA</title>
+    <!-- Tailwind CSS CDN para un estilizado moderno, limpio y responsive -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        sena: {
+                            green: '#39A900',  /* Verde Institucional SENA */
+                            orange: '#FF6B00', /* Verde de acento SENA */
+                            dark: '#0B2900',   /* Fondo oscuro con matiz verde */
+                            soft: '#F4F9F1'    /* Fondo suave para descanso visual */
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts para tipografía clara y legible (accesibilidad WCAG) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome para iconografía interactiva -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Estilos personalizados para mejorar el foco de accesibilidad y transiciones */
+        input:focus, button:focus, [role="button"]:focus {
+            outline: 3px solid #FF6B00;
+            outline-offset: 2px;
+        }
+        .animate-fadeIn {
+            animation: fadeIn 0.3s ease-out forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col">
+
+    <!-- CABECERA INSTITUCIONAL (SENA) -->
+    <header class="bg-white border-b border-slate-200 shadow-sm sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4 py-3 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-3">
+                <!-- Representación del escudo del SENA en SVG -->
+                <svg class="h-12 w-12 text-sena-green" viewBox="0 0 100 100" fill="currentColor" aria-hidden="true">
+                    <circle cx="50" cy="20" r="10" />
+                    <path d="M50 35c-15 0-25 10-25 25v5h50v-5c0-15-10-25-25-25z" />
+                    <path d="M15 75l10 15h50l10-15H15z" />
+                </svg>
+                <div>
+                    <span class="text-xs font-bold text-sena-orange uppercase tracking-wider">Centro de Formación Comercio y servicios</span>
+                    <h1 class="text-lg font-extrabold text-slate-900 tracking-tight leading-tight">Programa Técnico en Panadería</h1>
+                </div>
+            </div>
+            <!-- Indicador Global de Progreso de la Sesión de 30 min -->
+            <div class="w-full sm:w-64" aria-live="polite">
+                <div class="flex justify-between text-xs font-semibold text-slate-500 mb-1">
+                    <span>Progreso de la Guía</span>
+                    <span id="global-progress-text">Fase 1 de 4 (25%)</span>
+                </div>
+                <div class="w-full bg-slate-200 h-2.5 rounded-full overflow-hidden">
+                    <div id="global-progress-bar" class="bg-sena-green h-full transition-all duration-500" style="width: 25%;" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ÁREA DE NOTIFICACIONES DE ESTADO ACCESIBLES (WCAG 4.1.3) -->
+    <div id="status-live-announcer" class="sr-only" role="status" aria-live="polite">
+        Guía interactiva de Buenas Prácticas de Manufactura cargada correctamente.
+    </div>
+
+    <!-- CONTENEDOR PRINCIPAL MULTI-FASE (ESTILO SINGLE PAGE APPLICATION) -->
+    <main class="flex-grow max-w-5xl w-full mx-auto p-4 sm:p-6 lg:p-8 flex flex-col justify-center">
+
+        <!-- ================= MICRO 1: EL RETO Y EVALUACIÓN DIAGNÓSTICA (5 min) ================= -->
+        <section id="micro-1" class="phase-section block transition-opacity duration-300">
+            <!-- Introducción Pedagógica: Contexto Real -->
+            <div class="text-center mb-8">
+                <span class="px-3 py-1 bg-sena-green/10 text-sena-green rounded-full text-xs font-bold uppercase tracking-wide">Fase 1: El Desafío Inmediato</span>
+                <h2 class="text-3xl font-extrabold text-slate-900 mt-2">¿Salvarías a la Panadería "El Trigal"?</h2>
+                <p class="text-slate-600 mt-2 max-w-2xl mx-auto">Un caso práctico fundamentado en las alarmantes estadísticas de Enfermedades Transmitidas por Alimentos (ETAs) y la competencia de higienización del SENA.</p>
+            </div>
+
+            <!-- VIDEO INTRODUCTORIO DE BPM (COMPLEMENTO VISUAL DUA) -->
+            <div class="max-w-3xl mx-auto mb-6 bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden">
+                <div class="bg-sena-green/5 px-4 py-3 border-b border-slate-150 flex items-center gap-2">
+                    <span class="p-1 bg-sena-green/10 text-sena-green rounded-lg text-sm" aria-hidden="true"><i class="fa-solid fa-circle-play"></i></span>
+                    <span class="text-xs font-bold text-slate-700 uppercase tracking-wider">Video de Contexto: Pilares de Inocuidad</span>
+                </div>
+                <div class="relative aspect-video bg-black flex items-center justify-center">
+                    <video class="w-full h-full object-cover" controls preload="metadata" aria-label="Video introductorio sobre los Pilares de Inocuidad en Buenas Prácticas de Manufactura">
+                        <source src="VIDEO/BPM__Pilares_de_Inocuidad.mp4" type="video/mp4">
+                        <source src="VIDEO\BPM__Pilares_de_Inocuidad.mp4" type="video/mp4">
+                        <div class="p-6 text-center text-slate-400">
+                            <i class="fa-solid fa-video-slash text-4xl mb-2 text-slate-500" aria-hidden="true"></i>
+                            <p class="text-xs font-semibold">Tu navegador no soporta la reproducción de este video.</p>
+                            <p class="text-[10px] text-slate-500 mt-1">Por favor, asegúrate de tener el archivo "BPM__Pilares_de_Inocuidad.mp4" dentro del directorio "VIDEO".</p>
+                        </div>
+                    </video>
+                </div>
+            </div>
+
+            <!-- CARD VISUAL DE ALTO IMPACTO (REQUISITO TÉCNICO: EL RETO) -->
+            <div class="bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden max-w-3xl mx-auto mb-6">
+                <div class="bg-red-500 p-1"></div>
+                <div class="p-6 sm:p-8">
+                    <div class="flex items-start gap-4">
+                        <div class="bg-red-100 p-3 rounded-xl text-red-600 shrink-0" aria-hidden="true">
+                            <i class="fa-solid fa-triangle-exclamation text-2xl"></i>
+                        </div>
+                        <div>
+                            <span class="text-xs font-bold text-red-600 uppercase tracking-widest">ALERTA SANITARIA • PANADERÍA EL TRIGAL</span>
+                            <h3 class="text-xl font-bold text-slate-900 mt-1">El Desastre del "Pan de Queso"</h3>
+                            <p class="text-slate-600 mt-3 text-sm leading-relaxed">
+                                Ayer por la tarde, <strong>15 clientes de la panadería local ingresaron a urgencias</strong> con severos cuadros de intoxicación estomacal (ETA). Las autoridades de salud pública han programado una <strong>inspección inmediata de carácter preventivo</strong>. Si el establecimiento no cumple con los estándares sanitarios del <strong>Decreto 3075 de 1997</strong>, la panadería será clausurada definitivamente, enfrentando multas de hasta 10,000 salarios diarios mínimos y la pérdida total de su reputación.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- EVALUACIÓN DIAGNÓSTICA CON ENFOQUE ACCESIBLE (WCAG 2.5.3 / target naming) -->
+                    <div class="mt-8 pt-6 border-t border-slate-100">
+                        <fieldset class="space-y-4" aria-labelledby="diagnostico-titulo">
+                            <legend id="diagnostico-titulo" class="text-sm font-bold text-slate-800 flex items-center gap-2">
+                                <i class="fa-solid fa-lightbulb text-amber-500 animate-pulse" aria-hidden="true"></i>
+                                Evaluación Diagnóstica: Según tu experiencia o intuición, ¿cuál de estos factores cree que desencadena más rápido una contaminación de esta gravedad en panadería?
+                            </legend>
+                            
+                            <div class="grid grid-cols-1 gap-3">
+                                <button onclick="selectPriorKnowledge(1, this)" class="prior-btn p-4 bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-xl text-left text-xs font-medium transition duration-200 flex items-center gap-3 w-full" aria-label="Opción A: Fallas en las temperaturas de conservación y horneado de las masas.">
+                                    <span class="bg-slate-200 text-slate-700 h-6 w-6 shrink-0 rounded-full flex items-center justify-center font-bold text-xs" aria-hidden="true">A</span>
+                                    <span>Fallas en las temperaturas de conservación y horneado de las masas.</span>
+                                </button>
+                                <button onclick="selectPriorKnowledge(2, this)" class="prior-btn p-4 bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-xl text-left text-xs font-medium transition duration-200 flex items-center gap-3 w-full" aria-label="Opción B: El manipulador de alimentos trabajando con heridas expuestas o accesorios.">
+                                    <span class="bg-slate-200 text-slate-700 h-6 w-6 shrink-0 rounded-full flex items-center justify-center font-bold text-xs" aria-hidden="true">B</span>
+                                    <span>El manipulador de alimentos trabajando con heridas expuestas, joyas o sin lavado de manos.</span>
+                                </button>
+                                <button onclick="selectPriorKnowledge(3, this)" class="prior-btn p-4 bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-xl text-left text-xs font-medium transition duration-200 flex items-center gap-3 w-full" aria-label="Opción C: Humedad en la planta de producción que contamina empaques y harinas.">
+                                    <span class="bg-slate-200 text-slate-700 h-6 w-6 shrink-0 rounded-full flex items-center justify-center font-bold text-xs" aria-hidden="true">C</span>
+                                    <span>Humedad ambiental excesiva en el área de leudado o almacenamiento.</span>
+                                </button>
+                            </div>
+                        </fieldset>
+                        
+                        <!-- Retroalimentación diagnóstica (Neutral y de agradecimiento) -->
+                        <div id="prior-feedback" class="mt-4 p-4 bg-blue-50 border border-blue-200 rounded-xl text-xs text-blue-800 hidden animate-fadeIn" aria-live="polite">
+                            <!-- Inyectado dinámicamente de forma neutral por JS -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Botón de Navegación -->
+            <div class="mt-8 flex justify-center">
+                <button onclick="navigatePhase(2)" class="px-6 py-3 bg-sena-green hover:bg-sena-green/90 text-white font-bold rounded-xl shadow-md shadow-sena-green/20 transition-all transform hover:-translate-y-0.5 flex items-center gap-2">
+                    Comenzar Estudio Teórico
+                    <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+                </button>
+            </div>
+        </section>
+
+
+        <!-- ================= MICRO 2: CONTENIDO Y EVALUACIÓN FORMATIVA (10 min) ================= -->
+        <section id="micro-2" class="phase-section hidden transition-opacity duration-300">
+            <div class="text-center mb-6">
+                <span class="px-3 py-1 bg-sena-green/10 text-sena-green rounded-full text-xs font-bold uppercase tracking-wide">Fase 2: Fundamentos Técnicos</span>
+                <h2 class="text-3xl font-extrabold text-slate-900 mt-2">Normativa Sanitaria Clave</h2>
+                <p class="text-slate-600 mt-1 text-sm">Objetivo: Dominar los principios higiénicos del Decreto 3075 para asegurar la inocuidad.</p>
+            </div>
+
+            <!-- CONTENEDOR DE LA INFOGRAFÍA TÉCNICA -->
+            <div class="max-w-4xl mx-auto mb-8 bg-white p-3 rounded-2xl shadow-md border border-slate-200">
+                <div class="bg-sena-orange/5 px-4 py-2 border-b border-sena-orange/10 rounded-t-xl flex items-center gap-2 mb-3">
+                    <span class="p-1 bg-sena-orange/10 text-sena-orange rounded-lg text-sm" aria-hidden="true"><i class="fa-solid fa-map-location-dot"></i></span>
+                    <span class="text-xs font-bold text-slate-700 uppercase tracking-wider">Ruta de Aprendizaje: Infografía BPM</span>
+                </div>
+                <div class="relative overflow-hidden rounded-xl bg-slate-100 flex items-center justify-center min-h-[150px]">
+                    <img src="IMAGEN/infografia.png" 
+                         onerror="this.src='IMAGEN\\infografia.png'; this.onerror=function(){this.src='https://placehold.co/1200x500/39a900/ffffff?text=Infografía+BPM+SENA+-+Decreto+3075'}" 
+                         alt="Infografía del Decreto 3075 de 1997 sobre Buenas Prácticas de Manufactura en Panificación" 
+                         class="w-full h-auto object-contain max-h-[500px]"
+                         loading="lazy">
+                </div>
+            </div>
+
+            <!-- REQUISITO TÉCNICO: ELEMENTOS INTERACTIVOS (TABS) -->
+            <div class="bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden max-w-4xl mx-auto flex flex-col md:flex-row min-h-[400px] mb-8">
+                <!-- Barra de pestañas vertical -->
+                <div class="bg-slate-50 border-r border-slate-200 p-4 md:w-64 shrink-0 flex flex-row md:flex-col overflow-x-auto md:overflow-x-visible gap-2 scrollbar-none" role="tablist" aria-label="Ejes temáticos de BPM">
+                    <button onclick="switchTab('tab-personal')" id="btn-tab-personal" class="tab-btn w-full px-4 py-3 text-left rounded-xl font-bold text-xs flex items-center gap-3 transition duration-150 bg-sena-green text-white" aria-selected="true" role="tab" aria-controls="tab-personal">
+                        <i class="fa-solid fa-user-tie shrink-0" aria-hidden="true"></i>
+                        <span>Personal Manipulador</span>
+                    </button>
+                    <button onclick="switchTab('tab-edificacion')" id="btn-tab-edificacion" class="tab-btn w-full px-4 py-3 text-left rounded-xl font-bold text-xs flex items-center gap-3 transition duration-150 text-slate-600 hover:bg-slate-100" aria-selected="false" role="tab" aria-controls="tab-edificacion">
+                        <i class="fa-solid fa-building shrink-0" aria-hidden="true"></i>
+                        <span>Edificación y Áreas</span>
+                    </button>
+                    <button onclick="switchTab('tab-equipos')" id="btn-tab-equipos" class="tab-btn w-full px-4 py-3 text-left rounded-xl font-bold text-xs flex items-center gap-3 transition duration-150 text-slate-600 hover:bg-slate-100" aria-selected="false" role="tab" aria-controls="tab-equipos">
+                        <i class="fa-solid fa-blender shrink-0" aria-hidden="true"></i>
+                        <span>Equipos y Utensilios</span>
+                    </button>
+                    <button onclick="switchTab('tab-saneamiento')" id="btn-tab-saneamiento" class="tab-btn w-full px-4 py-3 text-left rounded-xl font-bold text-xs flex items-center gap-3 transition duration-150 text-slate-600 hover:bg-slate-100" aria-selected="false" role="tab" aria-controls="tab-saneamiento">
+                        <i class="fa-solid fa-pump-medical shrink-0" aria-hidden="true"></i>
+                        <span>Plan de Saneamiento</span>
+                    </button>
+                </div>
+
+                <!-- Contenido de las pestañas -->
+                <div class="p-6 flex-grow overflow-y-auto">
+                    <!-- TAB: PERSONAL MANIPULADOR -->
+                    <div id="tab-personal" class="tab-content block animate-fadeIn" role="tabpanel" aria-labelledby="btn-tab-personal">
+                        <div class="flex items-center gap-2 mb-4">
+                            <span class="p-1.5 bg-sena-green/10 text-sena-green rounded-lg text-sm" aria-hidden="true"><i class="fa-solid fa-user-tie"></i></span>
+                            <h3 class="text-lg font-bold text-slate-900">Requisitos del Personal (Art. 13 al 15)</h3>
+                        </div>
+                        <p class="text-xs text-slate-500 mb-4">El factor humano es el principal vector de contaminación en la industria panificadora. La normativa exige estrictas prácticas:</p>
+                        
+                        <div class="space-y-3">
+                            <div class="border border-slate-200 rounded-xl overflow-hidden">
+                                <button onclick="toggleAccordion('acc-personal-1')" class="w-full px-4 py-3 bg-slate-50 hover:bg-slate-100 text-left font-bold text-xs flex justify-between items-center text-slate-800" aria-expanded="false" aria-controls="acc-personal-1">
+                                    <span>1. Estado de Salud Crítico (Art. 13)</span>
+                                    <i class="fa-solid fa-chevron-down text-slate-400 text-[10px]" aria-hidden="true"></i>
+                                </button>
+                                <div id="acc-personal-1" class="accordion-content hidden px-4 py-3 border-t border-slate-100 text-xs text-slate-600 leading-relaxed bg-white">
+                                    Todo manipulador debe pasar por un reconocimiento médico previo al ingreso y al menos una vez al año. <strong>Se prohíbe terminantemente</strong> el acceso al área de producción de personal con infecciones cutáneas, heridas expuestas, diarrea o síntomas respiratorios sospechosos de causar contaminación cruzada.
+                                </div>
+                            </div>
+                            <div class="border border-slate-200 rounded-xl overflow-hidden">
+                                <button onclick="toggleAccordion('acc-personal-2')" class="w-full px-4 py-3 bg-slate-50 hover:bg-slate-100 text-left font-bold text-xs flex justify-between items-center text-slate-800" aria-expanded="false" aria-controls="acc-personal-2">
+                                    <span>2. Prácticas de Vestimenta Segura (Art. 15)</span>
+                                    <i class="fa-solid fa-chevron-down text-slate-400 text-[10px]" aria-hidden="true"></i>
+                                </button>
+                                <div id="acc-personal-2" class="accordion-content hidden px-4 py-3 border-t border-slate-100 text-xs text-slate-600 leading-relaxed bg-white">
+                                    La vestimenta de trabajo debe ser de color claro, lavable, sin bolsillos por encima de la cintura, con broches/cierres en lugar de botones. El uso de gorro que cubra todo el cabello, tapabocas efectivo y calzado cerrado impermeable es de uso obligatorio en toda la planta.
+                                </div>
+                            </div>
+                            <div class="border border-slate-200 rounded-xl overflow-hidden">
+                                <button onclick="toggleAccordion('acc-personal-3')" class="w-full px-4 py-3 bg-slate-50 hover:bg-slate-100 text-left font-bold text-xs flex justify-between items-center text-slate-800" aria-expanded="false" aria-controls="acc-personal-3">
+                                    <span>3. Restricciones Personales Absolutas (Art. 15-i)</span>
+                                    <i class="fa-solid fa-chevron-down text-slate-400 text-[10px]" aria-hidden="true"></i>
+                                </button>
+                                <div id="acc-personal-3" class="accordion-content hidden px-4 py-3 border-t border-slate-100 text-xs text-slate-600 leading-relaxed bg-white">
+                                    Queda estrictamente prohibido el uso de <strong>anillos, aretes, relojes, joyas o maquillaje</strong> en áreas de producción. Las uñas deben estar cortas, limpias y <strong>sin esmalte</strong> (para evitar desprendimientos físicos invisibles que terminen en la masa). No se permite comer, beber o fumar en áreas de proceso.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- TAB: EDIFICACIÓN Y ÁREAS -->
+                    <div id="tab-edificacion" class="tab-content hidden animate-fadeIn" role="tabpanel" aria-labelledby="btn-tab-edificacion">
+                        <div class="flex items-center gap-2 mb-4">
+                            <span class="p-1.5 bg-sena-green/10 text-sena-green rounded-lg text-sm" aria-hidden="true"><i class="fa-solid fa-building"></i></span>
+                            <h3 class="text-lg font-bold text-slate-900">Diseño Sanitario de Instalaciones (Art. 8-9)</h3>
+                        </div>
+                        <p class="text-xs text-slate-500 mb-4">La edificación debe ser una barrera de protección hermética y fluida.</p>
+                        
+                        <div class="space-y-3">
+                            <div class="border border-slate-200 rounded-xl overflow-hidden">
+                                <button onclick="toggleAccordion('acc-edi-1')" class="w-full px-4 py-3 bg-slate-50 hover:bg-slate-100 text-left font-bold text-xs flex justify-between items-center text-slate-800" aria-expanded="false" aria-controls="acc-edi-1">
+                                    <span>Pisos, Paredes y Uniones Redondeadas (Art. 9)</span>
+                                    <i class="fa-solid fa-chevron-down text-slate-400 text-[10px]" aria-hidden="true"></i>
+                                </button>
+                                <div id="acc-edi-1" class="accordion-content hidden px-4 py-3 border-t border-slate-100 text-xs text-slate-600 leading-relaxed bg-white">
+                                    Los pisos deben ser impermeables, lavables, no deslizantes y con pendientes hacia sifones (mínimo 2% en áreas húmedas). Las uniones entre pared y piso deben ser redondeadas (media caña) para impedir la acumulación de mugre y facilitar el lavado.
+                                </div>
+                            </div>
+                            <div class="border border-slate-200 rounded-xl overflow-hidden">
+                                <button onclick="toggleAccordion('acc-edi-2')" class="w-full px-4 py-3 bg-slate-50 hover:bg-slate-100 text-left font-bold text-xs flex justify-between items-center text-slate-800" aria-expanded="false" aria-controls="acc-edi-2">
+                                    <span>Ventilación y Control de Condensación (Art. 9-p)</span>
+                                    <i class="fa-solid fa-chevron-down text-slate-400 text-[10px]" aria-hidden="true"></i>
+                                </button>
+                                <div id="acc-edi-2" class="accordion-content hidden px-4 py-3 border-t border-slate-100 text-xs text-slate-600 leading-relaxed bg-white">
+                                    Se debe asegurar ventilación para remover calor excesivo (típico de hornos) y evitar la condensación de vapor. La condensación en techos provoca el goteo de agua sucia y mohos directo sobre el pan en proceso.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- TAB: EQUIPOS Y UTENSILIOS -->
+                    <div id="tab-equipos" class="tab-content hidden animate-fadeIn" role="tabpanel" aria-labelledby="btn-tab-equipos">
+                        <div class="flex items-center gap-2 mb-4">
+                            <span class="p-1.5 bg-sena-green/10 text-sena-green rounded-lg text-sm" aria-hidden="true"><i class="fa-solid fa-blender"></i></span>
+                            <h3 class="text-lg font-bold text-slate-900">Equipos y Superficies de Contacto (Art. 10-11)</h3>
+                        </div>
+                        <p class="text-xs text-slate-500 mb-4">Los materiales deben ser totalmente inertes y sanitarios.</p>
+                        
+                        <div class="space-y-3">
+                            <div class="border border-slate-200 rounded-xl overflow-hidden">
+                                <button onclick="toggleAccordion('acc-eq-1')" class="w-full px-4 py-3 bg-slate-50 hover:bg-slate-100 text-left font-bold text-xs flex justify-between items-center text-slate-800" aria-expanded="false" aria-controls="acc-eq-1">
+                                    <span>Materiales Prohibidos en Contacto con Alimentos</span>
+                                    <i class="fa-solid fa-chevron-down text-slate-400 text-[10px]" aria-hidden="true"></i>
+                                </button>
+                                <div id="acc-eq-1" class="accordion-content hidden px-4 py-3 border-t border-slate-100 text-xs text-slate-600 leading-relaxed bg-white">
+                                    No se permite el contacto de alimentos con materiales altamente porosos o difíciles de desinfectar, tales como la <strong>madera</strong> (tablas de picar, palas, rodillos de madera), plomo, cadmio, zinc o hierro dulce susceptible a la oxidación. Se exige el uso prioritario de <strong>acero inoxidable</strong>, nylon o teflón alimentario.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- TAB: PLAN DE SANEAMIENTO -->
+                    <div id="tab-saneamiento" class="tab-content hidden animate-fadeIn" role="tabpanel" aria-labelledby="btn-tab-saneamiento">
+                        <div class="flex items-center gap-2 mb-4">
+                            <span class="p-1.5 bg-sena-green/10 text-sena-green rounded-lg text-sm" aria-hidden="true"><i class="fa-solid fa-pump-medical"></i></span>
+                            <h3 class="text-lg font-bold text-slate-900">Programa de Limpieza y Desinfección (Art. 28-29)</h3>
+                        </div>
+                        <p class="text-xs text-slate-500 mb-4">El pilar preventivo indispensable en cualquier planta panificadora.</p>
+                        
+                        <div class="space-y-3">
+                            <div class="border border-slate-200 rounded-xl overflow-hidden">
+                                <button onclick="toggleAccordion('acc-san-1')" class="w-full px-4 py-3 bg-slate-50 hover:bg-slate-100 text-left font-bold text-xs flex justify-between items-center text-slate-800" aria-expanded="false" aria-controls="acc-san-1">
+                                    <span>Limpieza vs. Desinfección (Diferencia Crítica)</span>
+                                    <i class="fa-solid fa-chevron-down text-slate-400 text-[10px]" aria-hidden="true"></i>
+                                </button>
+                                <div id="acc-san-1" class="accordion-content hidden px-4 py-3 border-t border-slate-100 text-xs text-slate-600 leading-relaxed bg-white">
+                                    <strong>Limpieza:</strong> Remoción física de suciedades y residuos visibles usando agua y detergentes. <br>
+                                    <strong>Desinfección:</strong> Tratamiento físico o químico posterior mediante desinfectantes (cloro, amonios) para destruir bacterias microscópicas. <em>Nunca se desinfecta sin haber limpiado primero.</em>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ================= EVALUACIÓN FORMATIVA (MICRO 2) ================= -->
+            <div class="bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden max-w-4xl mx-auto p-6 sm:p-8">
+                <div class="border-b border-slate-100 pb-4 mb-6">
+                    <span class="text-xs font-bold text-sena-green uppercase tracking-wider">Verificación de Conceptos</span>
+                    <h3 class="text-xl font-bold text-slate-900 mt-1">Cuestionario de Evaluación Formativa</h3>
+                    <p class="text-slate-500 text-xs mt-1">Responda estas preguntas para validar el entendimiento conceptual. Al finalizar se generará un plan de refuerzo personalizado.</p>
+                </div>
+
+                <div id="formativa-cuestionario" class="space-y-6">
+                    <!-- Pregunta F1 -->
+                    <div class="question-container" data-q="1">
+                        <fieldset>
+                            <legend class="text-xs font-bold text-slate-800 mb-3" id="formativa-q1-lbl">
+                                1. ¿Por qué el Decreto 3075 de 1997 prohíbe taxativamente el uso de madera en utensilios y superficies que tocan la masa?
+                            </legend>
+                            <div class="space-y-2">
+                                <label class="flex items-start gap-3 p-3 border border-slate-200 rounded-xl hover:bg-slate-50 transition cursor-pointer text-xs font-medium">
+                                    <input type="radio" name="formativa-q1" value="A" onclick="checkFormativa(1, 'A')" class="mt-0.5 text-sena-green focus:ring-sena-green">
+                                    <span>A) Porque la madera altera el color de fermentación de las harinas.</span>
+                                </label>
+                                <label class="flex items-start gap-3 p-3 border border-slate-200 rounded-xl hover:bg-slate-50 transition cursor-pointer text-xs font-medium">
+                                    <input type="radio" name="formativa-q1" value="B" onclick="checkFormativa(1, 'B')" class="mt-0.5 text-sena-green focus:ring-sena-green">
+                                    <span>B) Porque la madera es un material poroso que absorbe humedad, facilitando el desarrollo de hongos y bacterias imposibles de retirar con lavado normal.</span>
+                                </label>
+                                <label class="flex items-start gap-3 p-3 border border-slate-200 rounded-xl hover:bg-slate-50 transition cursor-pointer text-xs font-medium">
+                                    <input type="radio" name="formativa-q1" value="C" onclick="checkFormativa(1, 'C')" class="mt-0.5 text-sena-green focus:ring-sena-green">
+                                    <span>C) Porque dificulta la conducción de calor durante el moldeo primario.</span>
+                                </label>
+                            </div>
+                        </fieldset>
+                        <!-- Feedback de la Pregunta F1 -->
+                        <div id="formativa-fdb-1" class="mt-3 p-3 rounded-xl text-xs hidden flex items-start gap-2" aria-live="polite"></div>
+                    </div>
+
+                    <!-- Pregunta F2 -->
+                    <div class="question-container border-t border-slate-100 pt-6" data-q="2">
+                        <fieldset>
+                            <legend class="text-xs font-bold text-slate-800 mb-3" id="formativa-q2-lbl">
+                                2. Si un manipulador tiene esmalte en las uñas, ¿qué peligro principal representa para el producto terminado de acuerdo al Decreto 3075?
+                            </legend>
+                            <div class="space-y-2">
+                                <label class="flex items-start gap-3 p-3 border border-slate-200 rounded-xl hover:bg-slate-50 transition cursor-pointer text-xs font-medium">
+                                    <input type="radio" name="formativa-q2" value="A" onclick="checkFormativa(2, 'A')" class="mt-0.5 text-sena-green focus:ring-sena-green">
+                                    <span>A) El peligro de una contaminación química por solventes de la pintura.</span>
+                                </label>
+                                <label class="flex items-start gap-3 p-3 border border-slate-200 rounded-xl hover:bg-slate-50 transition cursor-pointer text-xs font-medium">
+                                    <input type="radio" name="formativa-q2" value="B" onclick="checkFormativa(2, 'B')" class="mt-0.5 text-sena-green focus:ring-sena-green">
+                                    <span>B) Peligro de contaminación microbiológica debido a que el esmalte atrae levaduras salvajes.</span>
+                                </label>
+                                <label class="flex items-start gap-3 p-3 border border-slate-200 rounded-xl hover:bg-slate-50 transition cursor-pointer text-xs font-medium">
+                                    <input type="radio" name="formativa-q2" value="C" onclick="checkFormativa(2, 'C')" class="mt-0.5 text-sena-green focus:ring-sena-green">
+                                    <span>C) Peligro de contaminación física, ya que el esmalte seco se resquebraja por la fricción del amasado y cae invisible sobre la masa.</span>
+                                </label>
+                            </div>
+                        </fieldset>
+                        <!-- Feedback de la Pregunta F2 -->
+                        <div id="formativa-fdb-2" class="mt-3 p-3 rounded-xl text-xs hidden flex items-start gap-2" aria-live="polite"></div>
+                    </div>
+
+                    <!-- Pregunta F3 -->
+                    <div class="question-container border-t border-slate-100 pt-6" data-q="3">
+                        <fieldset>
+                            <legend class="text-xs font-bold text-slate-800 mb-3" id="formativa-q3-lbl">
+                                3. ¿Cuál de las siguientes acciones define técnicamente el proceso de Desinfección?
+                            </legend>
+                            <div class="space-y-2">
+                                <label class="flex items-start gap-3 p-3 border border-slate-200 rounded-xl hover:bg-slate-50 transition cursor-pointer text-xs font-medium">
+                                    <input type="radio" name="formativa-q3" value="A" onclick="checkFormativa(3, 'A')" class="mt-0.5 text-sena-green focus:ring-sena-green">
+                                    <span>A) Lavar con abundante agua caliente y cepillo metálico para retirar la suciedad de grasa y harinas visibles.</span>
+                                </label>
+                                <label class="flex items-start gap-3 p-3 border border-slate-200 rounded-xl hover:bg-slate-50 transition cursor-pointer text-xs font-medium">
+                                    <input type="radio" name="formativa-q3" value="B" onclick="checkFormativa(3, 'B')" class="mt-0.5 text-sena-green focus:ring-sena-green">
+                                    <span>B) Aplicar agentes químicos o físicos sobre superficies previamente limpias para reducir la carga de microorganismos patógenos invisibles.</span>
+                                </label>
+                                <label class="flex items-start gap-3 p-3 border border-slate-200 rounded-xl hover:bg-slate-50 transition cursor-pointer text-xs font-medium">
+                                    <input type="radio" name="formativa-q3" value="C" onclick="checkFormativa(3, 'C')" class="mt-0.5 text-sena-green focus:ring-sena-green">
+                                    <span>C) Barrer y aspirar el polvo de harina acumulado en los techos y ventiladores.</span>
+                                </label>
+                            </div>
+                        </fieldset>
+                        <!-- Feedback de la Pregunta F3 -->
+                        <div id="formativa-fdb-3" class="mt-3 p-3 rounded-xl text-xs hidden flex items-start gap-2" aria-live="polite"></div>
+                    </div>
+                </div>
+
+                <!-- PANTALLA DE RESUMEN DIFERIDA (REQUISITO TÉCNICO: REPORTE DE ERRORES AL FINALIZAR MICRO 2) -->
+                <div id="resumen-errores-container" class="mt-8 p-6 bg-slate-900 text-white rounded-2xl hidden animate-fadeIn">
+                    <div class="flex items-center gap-2 mb-4 text-sena-orange">
+                        <i class="fa-solid fa-receipt text-lg" aria-hidden="true"></i>
+                        <h4 class="font-bold text-sm uppercase tracking-wide">Reporte de Desempeño Técnico y Refuerzo</h4>
+                    </div>
+                    <div class="space-y-4">
+                        <p class="text-xs text-slate-300">
+                            A continuación, te presentamos el análisis diferido de tu autoevaluación conceptual. Revisa las recomendaciones específicas del **Decreto 3075** antes de pasar a la toma de decisiones prácticas:
+                        </p>
+                        <div id="resumen-errores-list" class="space-y-3">
+                            <!-- Inyectado dinámicamente con JS -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-6 flex justify-end" id="btn-container-micro2">
+                    <button id="btn-finalizar-m2" disabled onclick="finalizarMicro2()" class="px-6 py-3 bg-slate-700 text-slate-400 font-bold text-xs rounded-xl transition cursor-not-allowed flex items-center gap-2">
+                        <span>Finalizar Fase 2</span>
+                        <i class="fa-solid fa-lock text-[10px]" aria-hidden="true"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Botones de Navegación del Bloque -->
+            <div class="mt-8 flex justify-between max-w-4xl mx-auto">
+                <button onclick="navigatePhase(1)" class="px-5 py-2.5 border border-slate-300 hover:bg-slate-100 font-bold rounded-xl text-slate-700 transition flex items-center gap-2">
+                    <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+                    Atrás
+                </button>
+            </div>
+        </section>
+
+
+        <!-- ================= MICRO 3: APLICACIÓN Y TOMA DE DECISIONES (10 min) ================= -->
+        <section id="micro-3" class="phase-section hidden transition-opacity duration-300">
+            <div class="text-center mb-6">
+                <span class="px-3 py-1 bg-sena-green/10 text-sena-green rounded-full text-xs font-bold uppercase tracking-wide">Fase 3: Toma de Decisiones en Campo</span>
+                <h2 class="text-3xl font-extrabold text-slate-900 mt-2">La Inspección Sanitaria Oficial</h2>
+                <p class="text-slate-600 mt-1 text-sm max-w-xl mx-auto">El inspector de sanidad territorial ingresa a la planta. Toma las decisiones más adecuadas ante los escenarios de riesgo de la Panadería "El Trigal".</p>
+            </div>
+
+            <!-- INTERFAZ DEL SIMULADOR SITUACIONAL (WCAG 4.1.3 y Gamificación con Puntos) -->
+            <div class="bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden max-w-4xl mx-auto grid grid-cols-1 lg:grid-cols-3">
+                
+                <!-- Escenarios de Análisis Situacional (Izquierda/Centro) -->
+                <div class="lg:col-span-2 p-6 border-r border-slate-200 bg-slate-50 flex flex-col justify-between">
+                    
+                    <!-- Contenedor del Escenario Situacional Activo -->
+                    <div id="escenario-situacional" class="space-y-4">
+                        <div id="escenario-bloque-1">
+                            <span class="text-[10px] font-bold text-red-600 uppercase tracking-widest block mb-1">Escenario 1: El Ingreso del Inspector</span>
+                            <h3 class="text-base font-bold text-slate-900">1. Al entrar al área de amasado, el inspector nota que el maestro panadero lleva puestas dos sortijas y un reloj en el brazo izquierdo. Como encargado de la calidad, ¿cuál es tu proceder reglamentario inmediato?</h3>
+                            
+                            <div class="space-y-2 mt-4">
+                                <button onclick="selectDecision(1, 'A', this)" class="decision-btn w-full p-4 border border-slate-200 hover:bg-slate-100 bg-white text-left text-xs font-medium rounded-xl transition flex items-center justify-between">
+                                    <span>A) Argumentar que son sortijas de matrimonio y que el proceso mecánico no genera contacto de riesgo.</span>
+                                    <i class="fa-regular fa-square text-slate-400"></i>
+                                </button>
+                                <button onclick="selectDecision(1, 'B', this)" class="decision-btn w-full p-4 border border-slate-200 hover:bg-slate-100 bg-white text-left text-xs font-medium rounded-xl transition flex items-center justify-between">
+                                    <span>B) Solicitar de forma inmediata la detención del proceso, el retiro de los accesorios, su desinfección y el lavado completo de manos del operario antes de reiniciar.</span>
+                                    <i class="fa-regular fa-square text-slate-400"></i>
+                                </button>
+                                <button onclick="selectDecision(1, 'C', this)" class="decision-btn w-full p-4 border border-slate-200 hover:bg-slate-100 bg-white text-left text-xs font-medium rounded-xl transition flex items-center justify-between">
+                                    <span>C) Ofrecer guantes sanitarios de látex al operario para cubrir las sortijas sin detener el flujo de trabajo.</span>
+                                    <i class="fa-regular fa-square text-slate-400"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div id="escenario-bloque-2" class="hidden">
+                            <span class="text-[10px] font-bold text-red-600 uppercase tracking-widest block mb-1">Escenario 2: Utensilios Críticos</span>
+                            <h3 class="text-base font-bold text-slate-900">2. El inspector observa que utilizas tablas y rodillos de madera rústica para el sobado final y dar forma al pan de queso. ¿Cuál decisión técnica tomas para mitigar la no conformidad?</h3>
+                            
+                            <div class="space-y-2 mt-4">
+                                <button onclick="selectDecision(2, 'A', this)" class="decision-btn w-full p-4 border border-slate-200 hover:bg-slate-100 bg-white text-left text-xs font-medium rounded-xl transition flex items-center justify-between">
+                                    <span>A) Cambiar de inmediato los rodillos por unos de material polimérico (nylon) o acero inoxidable y trasladar la masa a mesones metálicos.</span>
+                                    <i class="fa-regular fa-square text-slate-400"></i>
+                                </button>
+                                <button onclick="selectDecision(2, 'B', this)" class="decision-btn w-full p-4 border border-slate-200 hover:bg-slate-100 bg-white text-left text-xs font-medium rounded-xl transition flex items-center justify-between">
+                                    <span>B) Aplicar una solución clorada de alta concentración directamente sobre la madera delante del inspector para demostrar su sanidad.</span>
+                                    <i class="fa-regular fa-square text-slate-400"></i>
+                                </button>
+                                <button onclick="selectDecision(2, 'C', this)" class="decision-btn w-full p-4 border border-slate-200 hover:bg-slate-100 bg-white text-left text-xs font-medium rounded-xl transition flex items-center justify-between">
+                                    <span>C) Prometer en el acta de visita que los rodillos y mesas se lavarán todos los fines de semana.</span>
+                                    <i class="fa-regular fa-square text-slate-400"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div id="escenario-bloque-3" class="hidden">
+                            <span class="text-[10px] font-bold text-red-600 uppercase tracking-widest block mb-1">Escenario 3: Saneamiento y Residuos</span>
+                            <h3 class="text-base font-bold text-slate-900">3. El inspector encuentra moscas revoloteando en las canecas de basura destapadas junto a la tolva de harina. ¿Cómo resuelves de manera correctiva y preventiva el hallazgo?</h3>
+                            
+                            <div class="space-y-2 mt-4">
+                                <button onclick="selectDecision(3, 'A', this)" class="decision-btn w-full p-4 border border-slate-200 hover:bg-slate-100 bg-white text-left text-xs font-medium rounded-xl transition flex items-center justify-between">
+                                    <span>A) Aplicar aerosol insecticida químico comercial en toda el área de amase para erradicar las moscas al instante.</span>
+                                    <i class="fa-regular fa-square text-slate-400"></i>
+                                </button>
+                                <button onclick="selectDecision(3, 'B', this)" class="decision-btn w-full p-4 border border-slate-200 hover:bg-slate-100 bg-white text-left text-xs font-medium rounded-xl transition flex items-center justify-between">
+                                    <span>B) Retirar inmediatamente el contenedor, verter su contenido en el depósito externo de basuras, lavar la caneca, dotarla de bolsa plástica e instalar una tapa de pedal hermética según el Plan de Saneamiento.</span>
+                                    <i class="fa-regular fa-square text-slate-400"></i>
+                                </button>
+                                <button onclick="selectDecision(3, 'C', this)" class="decision-btn w-full p-4 border border-slate-200 hover:bg-slate-100 bg-white text-left text-xs font-medium rounded-xl transition flex items-center justify-between">
+                                    <span>C) Retirar la caneca temporalmente a la calle y regresarla al interior cuando el inspector se haya retirado.</span>
+                                    <i class="fa-regular fa-square text-slate-400"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Mensajes de Feedback Práctico e Inmediato -->
+                    <div id="decision-feedback" class="mt-4 p-4 rounded-xl border border-slate-200 bg-white hidden animate-fadeIn flex items-start gap-3">
+                        <span id="decision-feedback-icon" class="text-xl shrink-0"></span>
+                        <div>
+                            <h4 id="decision-feedback-title" class="font-bold text-sm"></h4>
+                            <p id="decision-feedback-desc" class="text-xs mt-1 text-slate-600 leading-relaxed"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Estado de la Auditoría y Gamificación (Derecha) -->
+                <div class="p-6 bg-slate-900 text-white flex flex-col justify-between">
+                    <div>
+                        <h3 class="text-base font-bold text-sena-green mb-4">Métricas de Inocuidad</h3>
+                        
+                        <!-- Barra de Puntos Globales -->
+                        <div class="mb-6">
+                            <div class="flex justify-between text-xs text-slate-300 font-semibold mb-2">
+                                <span>Índice de Inocuidad</span>
+                                <span id="safety-score">0% (Inocuidad Nula)</span>
+                            </div>
+                            <div class="w-full bg-slate-800 h-3 rounded-full overflow-hidden">
+                                <div id="safety-progress-bar" class="bg-red-500 h-full transition-all duration-500" style="width: 0%;" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+
+                        <!-- Bitácora de Acciones Realizadas -->
+                        <div class="space-y-3">
+                            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest block">Bitácora de Campo</span>
+                            <div id="sim-history" class="text-[11px] text-slate-300 h-40 overflow-y-auto space-y-2 pr-2 scrollbar-thin">
+                                <p class="text-slate-400"><i class="fa-solid fa-spinner fa-spin mr-1"></i> Esperando toma de decisiones frente a los hallazgos...</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Estado del Botón Continuar -->
+                    <div class="pt-6 border-t border-slate-800">
+                        <button id="btn-next-sim" disabled onclick="finalizarGuia()" class="w-full py-3 bg-slate-700 text-slate-400 font-bold text-sm rounded-xl cursor-not-allowed transition duration-200 flex items-center justify-center gap-2">
+                            <span>Siguiente: Obtener Insignia</span>
+                            <i class="fa-solid fa-lock text-xs" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Botones de Navegación -->
+            <div class="mt-8 flex justify-between max-w-4xl mx-auto">
+                <button onclick="navigatePhase(2)" class="px-5 py-2.5 border border-slate-300 hover:bg-slate-100 font-bold rounded-xl text-slate-700 transition flex items-center gap-2">
+                    <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+                    Atrás
+                </button>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER INSTITUCIONAL -->
+    <footer class="bg-slate-900 text-slate-400 text-xs py-6 mt-12 border-t border-slate-800">
+        <div class="max-w-6xl mx-auto px-4 text-center space-y-2">
+            <p class="font-bold text-white">Servicio Nacional de Aprendizaje SENA • Dirección General</p>
+            <p>Decreto 3075 de 1997 • Higienización de Alimentos en la Industria Alimentaria</p>
+            <p class="text-[10px] text-slate-500">Diseño Instruccional Adaptativo DUA - 2026. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+
+    <!-- ================= MODAL DE CERTIFICACIÓN / INSIGNIA DIGITAL ================= -->
+    <div id="modal-insignia" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4 z-[100] hidden">
+        <div class="bg-white rounded-3xl shadow-2xl border border-slate-100 max-w-md w-full overflow-hidden text-center animate-bounceIn">
+            <div class="bg-sena-green p-6 text-white relative">
+                <!-- SVG animado de la insignia -->
+                <div class="mx-auto h-24 w-24 bg-white/10 rounded-full flex items-center justify-center border-4 border-white/30 mb-2 relative z-10">
+                    <i class="fa-solid fa-award text-5xl text-amber-400"></i>
+                </div>
+                <div class="absolute inset-0 bg-gradient-to-b from-sena-green to-sena-dark opacity-90"></div>
+                <h3 class="text-xl font-extrabold relative z-10">¡Técnico Certificado!</h3>
+                <p class="text-xs text-sena-soft/80 mt-1 relative z-10">Has salvado a la Panadería "El Trigal"</p>
+            </div>
+            <div class="p-6 sm:p-8 space-y-4">
+                <p class="text-xs text-slate-600 leading-relaxed">
+                    Has completado exitosamente la Guía de Aprendizaje sobre <strong>Buenas Prácticas de Manufactura (BPM)</strong>. Demostraste un excelente dominio del <strong>Decreto 3075 de 1997</strong> para la inocuidad alimentaria.
+                </p>
+                
+                <!-- Detalle de la competencia para la transferencia del conocimiento -->
+                <div class="bg-slate-50 p-4 rounded-2xl border border-slate-100 text-left">
+                    <span class="text-[9px] font-bold text-sena-green uppercase tracking-widest block">Competencia Acreditada</span>
+                    <h4 class="font-bold text-slate-900 text-xs mt-1">Higiene Integral en Procesamiento Panificador</h4>
+                    <p class="text-[10px] text-slate-500 mt-1">Aprobación del Resultado de Aprendizaje bajo el código de competencia SENA 290801025.</p>
+                </div>
+
+                <div class="pt-4 flex flex-col gap-2">
+                    <button onclick="shareAchievement()" class="w-full py-3 bg-sena-orange hover:bg-sena-orange/90 text-white font-bold text-xs rounded-xl shadow-md transition">
+                        Compartir Logro en LinkedIn / SENA Sofia
+                    </button>
+                    <button onclick="restartAll()" class="w-full py-2.5 border border-slate-300 hover:bg-slate-50 text-slate-700 font-semibold text-xs rounded-xl transition">
+                        Reiniciar Entrenamiento
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ================= JAVASCRIPT: LÓGICA PEDAGÓGICA Y ESTADO DE LA INTERFAZ ================= -->
+    <script>
+        /**
+         * OBJETO GLOBAL DE ESTADO (State Management)
+         * Mantiene la persistencia de las actividades interactivas, los puntos y el progreso.
+         */
+        const AppState = {
+            currentPhase: 1,
+            safetyScore: 0, // Inocuidad lograda en el simulador del Micro 3
+            formativa: {
+                answers: {},
+                correctAnswers: {
+                    1: 'B',
+                    2: 'C',
+                    3: 'B'
+                }
+            },
+            decisiones: {
+                answers: {},
+                correctAnswers: {
+                    1: 'B',
+                    2: 'A',
+                    3: 'B'
+                }
+            }
+        };
+
+        /**
+         * NAVEGACIÓN GENERAL (Single Page Application Logic)
+         */
+        function navigatePhase(phaseNum) {
+            AppState.currentPhase = phaseNum;
+
+            document.querySelectorAll('.phase-section').forEach(sec => {
+                sec.classList.add('hidden');
+            });
+
+            const activeSec = document.getElementById(`micro-${phaseNum}`);
+            if (activeSec) {
+                activeSec.classList.remove('hidden');
+            }
+
+            const progressPercentage = phaseNum * 25;
+            const progressText = `Fase ${phaseNum} de 4 (${progressPercentage}%)`;
+            
+            // Actualización de barras de navegación y progreso
+            document.getElementById('global-progress-bar').style.width = `${progressPercentage}%`;
+            document.getElementById('global-progress-bar').setAttribute('aria-valuenow', progressPercentage);
+            document.getElementById('global-progress-text').innerText = progressText;
+
+            // Anunciador de accesibilidad (WCAG 4.1.3)
+            announceState(`Navegación completada. Ahora estás en la fase ${phaseNum}: ${progressText}`);
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        /**
+         * AUXILIAR: ANUNCIADOR ACCESIBLE EN LOTE
+         */
+        function announceState(message) {
+            const announcer = document.getElementById('status-live-announcer');
+            if (announcer) {
+                announcer.innerText = message;
+            }
+        }
+
+        /**
+         * MICRO 1: EVALUACIÓN DIAGNÓSTICA (5 min) - SIN PUNTAJE, RETROALIMENTACIÓN NEUTRAL
+         */
+        function selectPriorKnowledge(option, element) {
+            document.querySelectorAll('.prior-btn').forEach(btn => {
+                btn.classList.remove('border-sena-orange', 'bg-sena-orange/5', 'ring-2', 'ring-sena-orange');
+            });
+            element.classList.add('border-sena-orange', 'bg-sena-orange/5', 'ring-2', 'ring-sena-orange');
+
+            const feedbackDiv = document.getElementById('prior-feedback');
+            feedbackDiv.classList.remove('hidden');
+
+            // Feedback neutral que agradece la participación y vincula suavemente al siguiente módulo
+            let optionText = option === 1 ? 'Opción A' : option === 2 ? 'Opción B' : 'Opción C';
+            
+            feedbackDiv.innerHTML = `
+                <div class="flex items-start gap-2">
+                    <span class="p-1 bg-blue-100 text-blue-700 rounded-lg"><i class="fa-solid fa-circle-check"></i></span>
+                    <div>
+                        <strong class="font-bold text-blue-900 block">Sondeo Registrado Correctamente:</strong>
+                        <p class="mt-1">
+                            Agradecemos su participación en este sondeo inicial seleccionando la <strong>${optionText}</strong>. Todas las opciones representan áreas de alta criticidad en panificación. 
+                            A continuación, avanzaremos a la <strong>Fase 2: Fundamentos Técnicos</strong> para profundizar sistemáticamente en los parámetros exigidos por la Ley colombiana.
+                        </p>
+                    </div>
+                </div>
+            `;
+
+            announceState(`Sondeo registrado de forma neutral. Gracias por su participación. Proceda al bloque técnico.`);
+        }
+
+        /**
+         * PESTAÑAS Y ACORDEONES (Fase 2)
+         */
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.className = "tab-btn w-full px-4 py-3 text-left rounded-xl font-bold text-xs flex items-center gap-3 transition duration-150 text-slate-600 hover:bg-slate-100";
+                btn.setAttribute('aria-selected', 'false');
+            });
+
+            const activeBtn = document.getElementById(`btn-${tabId}`);
+            activeBtn.className = "tab-btn w-full px-4 py-3 text-left rounded-xl font-bold text-xs flex items-center gap-3 transition duration-150 bg-sena-green text-white";
+            activeBtn.setAttribute('aria-selected', 'true');
+
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.add('hidden');
+            });
+
+            document.getElementById(tabId).classList.remove('hidden');
+            announceState(`Pestaña ${tabId.replace('tab-', '')} activada.`);
+        }
+
+        function toggleAccordion(accId) {
+            const accElement = document.getElementById(accId);
+            const isHidden = accElement.classList.contains('hidden');
+
+            document.querySelectorAll('.accordion-content').forEach(content => {
+                content.classList.add('hidden');
+            });
+
+            const activeBtn = document.querySelector(`[aria-controls="${accId}"]`);
+
+            if (isHidden) {
+                accElement.classList.remove('hidden');
+                activeBtn.setAttribute('aria-expanded', 'true');
+                announceState(`Desplegando sección: ${activeBtn.innerText}`);
+            } else {
+                activeBtn.setAttribute('aria-expanded', 'false');
+            }
+        }
+
+        /**
+         * MICRO 2: EVALUACIÓN FORMATIVA (Retroalimentación Inmediata con Iconos e Información de Estado WCAG 4.1.3)
+         */
+        function checkFormativa(qNum, value) {
+            AppState.formativa.answers[qNum] = value;
+            
+            const isCorrect = AppState.formativa.correctAnswers[qNum] === value;
+            const fdbElement = document.getElementById(`formativa-fdb-${qNum}`);
+            
+            fdbElement.classList.remove('hidden');
+
+            // Limpiar inputs interactivos no seleccionados de forma visual
+            const qContainer = document.querySelector(`.question-container[data-q="${qNum}"]`);
+            qContainer.querySelectorAll('label').forEach(lbl => {
+                lbl.className = "flex items-start gap-3 p-3 border border-slate-200 rounded-xl hover:bg-slate-50 transition cursor-pointer text-xs font-medium";
+            });
+
+            const selectedLabel = qContainer.querySelector(`input[value="${value}"]`).parentElement;
+
+            if (isCorrect) {
+                // Éxito - Icono verde y mensaje explicativo inmediato (WCAG 4.1.3)
+                selectedLabel.className = "flex items-start gap-3 p-3 border-2 border-sena-green bg-sena-green/5 rounded-xl transition text-xs font-bold text-slate-900";
+                
+                fdbElement.className = "mt-3 p-3 rounded-xl text-xs bg-sena-green/10 text-sena-dark flex items-start gap-2 animate-fadeIn";
+                fdbElement.innerHTML = `
+                    <i class="fa-solid fa-circle-check text-sena-green mt-0.5" aria-hidden="true"></i>
+                    <span><strong>¡Correcto!</strong> ${getExplicacionFormativa(qNum)}</span>
+                `;
+            } else {
+                // Error - Icono rojo y mensaje correctivo
+                selectedLabel.className = "flex items-start gap-3 p-3 border-2 border-red-500 bg-red-50 rounded-xl transition text-xs font-bold text-slate-900";
+                
+                fdbElement.className = "mt-3 p-3 rounded-xl text-xs bg-red-50 text-red-900 flex items-start gap-2 animate-fadeIn";
+                fdbElement.innerHTML = `
+                    <i class="fa-solid fa-circle-xmark text-red-600 mt-0.5" aria-hidden="true"></i>
+                    <span><strong>Respuesta Incorrecta.</strong> La opción seleccionada infringe los parámetros higiénicos del Decreto 3075.</span>
+                `;
+            }
+
+            // Reportar avance de estado silencioso para asistentes (Criterio 4.1.3)
+            announceState(`Respuesta enviada correctamente para pregunta ${qNum}. Estado: ${isCorrect ? 'Correcto' : 'Incorrecto'}.`);
+
+            // Validar si el cuestionario está completo para habilitar botón diferido
+            const completedCount = Object.keys(AppState.formativa.answers).length;
+            if (completedCount === 3) {
+                const btnM2 = document.getElementById('btn-finalizar-m2');
+                btnM2.removeAttribute('disabled');
+                btnM2.className = "px-6 py-3 bg-sena-orange hover:bg-sena-orange/90 text-white font-bold text-xs rounded-xl shadow-lg transition duration-200 flex items-center gap-2";
+                btnM2.querySelector('i').className = "fa-solid fa-arrow-right text-[10px]";
+                announceState("Cuestionario formativo completado. Presiona Finalizar Fase 2 para ver el reporte de errores y plan de refuerzo.");
+            }
+        }
+
+        function getExplicacionFormativa(qNum) {
+            switch(qNum) {
+                case 1: return "El Art. 11 del Decreto 3075 veta materiales porosos que acumulan agua, restos orgánicos de huevo o grasa que sirven de caldo de cultivo para mohos.";
+                case 2: return "El esmalte seco es un contaminante físico inaceptable, ya que se quiebra por la flexión del amase y entra de forma invisible a la masa fermentada.";
+                case 3: return "La desinfección consiste en erradicar patógenos invisibles mediante agentes sobre una superficie previamente libre de materia orgánica (limpia).";
+            }
+        }
+
+        /**
+         * GENERAR REPORTE DE ERRORES DIFERIDO Y PLAN DE REFUERZO (Fase 2 Final)
+         */
+        function finalizarMicro2() {
+            const resumenContainer = document.getElementById('resumen-errores-container');
+            const resumenList = document.getElementById('resumen-errores-list');
+            
+            resumenContainer.classList.remove('hidden');
+            resumenList.innerHTML = "";
+
+            let fallosExistentes = false;
+
+            // Analizar resultados formativos
+            for (let q = 1; q <= 3; q++) {
+                const isCorrect = AppState.formativa.answers[q] === AppState.formativa.correctAnswers[q];
+                if (!isCorrect) {
+                    fallosExistentes = true;
+                    const item = document.createElement('div');
+                    item.className = "p-3 bg-slate-800 border-l-4 border-sena-orange rounded-r-xl text-[11px] text-slate-300 leading-relaxed";
+                    
+                    if (q === 1) {
+                        item.innerHTML = `<strong>Fallo en Pregunta 1 (Uso de Madera):</strong> Debe reforzar el <strong>Artículo 11</strong> sobre materiales prohibidos por acumulación de humedad y bacterias. <em class="block text-[10px] text-sena-orange mt-1">Sugerencia: Cambie rodillos y mesones por nylon o acero inoxidable en su panadería.</em>`;
+                    } else if (q === 2) {
+                        item.innerHTML = `<strong>Fallo en Pregunta 2 (Esmalte en uñas):</strong> Debe revisar el <strong>Artículo 15-i</strong> sobre prohibición de maquillaje y esmalte de uñas para evitar contaminaciones físicas. <em class="block text-[10px] text-sena-orange mt-1">Sugerencia: Capacite al personal de amase en inspección diaria de higiene de manos.</em>`;
+                    } else if (q === 3) {
+                        item.innerHTML = `<strong>Fallo en Pregunta 3 (Definición de Desinfección):</strong> Recuerde que no hay desinfección efectiva sin limpieza previa, conforme al <strong>Artículo 29</strong>. <em class="block text-[10px] text-sena-orange mt-1">Sugerencia: Diseñe un instructivo claro que diferencie lavado (limpieza) de aplicación de cloro (desinfección).</em>`;
+                    }
+                    resumenList.appendChild(item);
+                }
+            }
+
+            if (!fallosExistentes) {
+                const item = document.createElement('div');
+                item.className = "p-3 bg-sena-green/10 border-l-4 border-sena-green rounded-r-xl text-[11px] text-slate-300 leading-relaxed";
+                item.innerHTML = `<strong>¡Perfecto! Dominio Absoluto (100%):</strong> No has fallado ninguna pregunta teórica en el Micro 2. Posees una excelente fundamentación teórica para mitigar la crisis de la Panadería.`;
+                resumenList.appendChild(item);
+            }
+
+            // Cambiar comportamiento del botón para avanzar a Micro 3
+            const btnM2 = document.getElementById('btn-finalizar-m2');
+            btnM2.onclick = function() { navigatePhase(3); };
+            btnM2.querySelector('span').innerText = "Ir al Simulador de Campo (Fase 3)";
+            
+            // Foco en pantalla para leer el resumen
+            resumenContainer.scrollIntoView({ behavior: 'smooth' });
+            announceState("Reporte de desempeño diferido cargado correctamente. Revise los puntos a reforzar y proceda al Simulador.");
+        }
+
+
+        /**
+         * MICRO 3: APLICACIÓN, TOMA DE DECISIONES Y GAMIFICACIÓN (10 min)
+         */
+        function selectDecision(scenNum, value, element) {
+            const block = document.getElementById(`escenario-bloque-${scenNum}`);
+            
+            // Deshabilitar botones de opción del escenario actual
+            block.querySelectorAll('.decision-btn').forEach(btn => {
+                btn.className = "decision-btn w-full p-4 border border-slate-200 opacity-50 cursor-not-allowed text-left text-xs font-medium rounded-xl transition flex items-center justify-between bg-white";
+                btn.removeAttribute('onclick');
+            });
+
+            const isCorrect = AppState.decisiones.correctAnswers[scenNum] === value;
+            const fdbBlock = document.getElementById('decision-feedback');
+            const fdbIcon = document.getElementById('decision-feedback-icon');
+            const fdbTitle = document.getElementById('decision-feedback-title');
+            const fdbDesc = document.getElementById('decision-feedback-desc');
+
+            fdbBlock.classList.remove('hidden');
+
+            if (isCorrect) {
+                // Correcto: Sumar puntos de gamificación y dar feedback inmediato
+                element.className = "decision-btn w-full p-4 border-2 border-sena-green bg-sena-green/5 text-left text-xs font-bold rounded-xl transition flex items-center justify-between text-slate-900";
+                element.querySelector('i').className = "fa-solid fa-square-check text-sena-green text-sm";
+
+                AppState.safetyScore += 33.3; // Incremento global
+                if (AppState.safetyScore > 100) AppState.safetyScore = 100;
+
+                fdbBlock.className = "mt-4 p-4 rounded-xl border border-sena-green/30 bg-sena-green/5 text-sena-dark flex items-start gap-3 animate-fadeIn";
+                fdbIcon.innerHTML = `<i class="fa-solid fa-circle-check text-sena-green"></i>`;
+                fdbTitle.innerText = "¡Excelente toma de decisión técnica!";
+                fdbDesc.innerText = getExplicacionSimulador(scenNum);
+
+                // Agregar a la bitácora
+                agregarBitacora(scenNum, true);
+            } else {
+                // Incorrecto: No suma puntos
+                element.className = "decision-btn w-full p-4 border-2 border-red-500 bg-red-50 text-left text-xs font-bold rounded-xl transition flex items-center justify-between text-slate-900";
+                element.querySelector('i').className = "fa-solid fa-square-xmark text-red-500 text-sm";
+
+                fdbBlock.className = "mt-4 p-4 rounded-xl border border-red-200 bg-red-50 text-red-900 flex items-start gap-3 animate-fadeIn";
+                fdbIcon.innerHTML = `<i class="fa-solid fa-triangle-exclamation text-red-600"></i>`;
+                fdbTitle.innerText = "Decisión Crítica Errónea";
+                fdbDesc.innerText = "La acción seleccionada no cumple con la normatividad sanitaria obligatoria del Decreto 3075 de 1997.";
+
+                agregarBitacora(scenNum, false);
+            }
+
+            // Actualizar interfaz de puntos de gamificación
+            actualizarPuntosSim();
+
+            // Avanzar automáticamente de escenario si quedan pendientes
+            setTimeout(() => {
+                if (scenNum < 3) {
+                    fdbBlock.classList.add('hidden');
+                    document.getElementById(`escenario-bloque-${scenNum}`).classList.add('hidden');
+                    document.getElementById(`escenario-bloque-${scenNum + 1}`).classList.remove('hidden');
+                    announceState(`Escenario ${scenNum + 1} cargado.`);
+                } else {
+                    // Fin de los escenarios de toma de decisiones
+                    habilitarFinGuia();
+                }
+            }, 5500); // 5.5 segundos de lectura del feedback inmediato
+        }
+
+        function getExplicacionSimulador(scenNum) {
+            switch(scenNum) {
+                case 1: return "El Art. 15 del Decreto exige suspender la tarea de forma inmediata ante cualquier riesgo de contaminación física. La desinfección y el lavado son mandatorios.";
+                case 2: return "Cambiar madera por nylon o metal (Art. 11) elimina de forma permanente el riesgo microbiológico estructural. Un lavado semanal de madera no elimina bacterias.";
+                case 3: return "Retirar, lavar y tapar herméticamente el residuo (Art. 29) corta el ciclo biológico de plagas de raíz. El insecticida químico cerca de alimentos está prohibido.";
+            }
+        }
+
+        function agregarBitacora(scenNum, exito) {
+            const history = document.getElementById('sim-history');
+            
+            // Eliminar spinner inicial si existe
+            const spinner = history.querySelector('.fa-spinner');
+            if (spinner) history.innerHTML = "";
+
+            const log = document.createElement('p');
+            if (exito) {
+                log.className = "text-sena-green animate-fadeIn flex items-start gap-1";
+                log.innerHTML = `<i class="fa-solid fa-check mt-0.5 shrink-0"></i> Escenario ${scenNum}: Decisión higiénica aprobada por el inspector. (+33.3 pts)`;
+            } else {
+                log.className = "text-red-400 animate-fadeIn flex items-start gap-1";
+                log.innerHTML = `<i class="fa-solid fa-xmark mt-0.5 shrink-0"></i> Escenario ${scenNum}: No conformidad registrada en el acta de visita. (+0 pts)`;
+            }
+
+            history.appendChild(log);
+            history.scrollTop = history.scrollHeight;
+        }
+
+        function actualizarPuntosSim() {
+            const scoreDisplay = Math.round(AppState.safetyScore);
+            const progressBar = document.getElementById('safety-progress-bar');
+            
+            progressBar.style.width = `${scoreDisplay}%`;
+            progressBar.setAttribute('aria-valuenow', scoreDisplay);
+
+            if (scoreDisplay >= 90) {
+                progressBar.className = "bg-sena-green h-full transition-all duration-500";
+                document.getElementById('safety-score').innerText = `${scoreDisplay}% (Inocuidad Óptima)`;
+            } else if (scoreDisplay >= 50) {
+                progressBar.className = "bg-amber-500 h-full transition-all duration-500";
+                document.getElementById('safety-score').innerText = `${scoreDisplay}% (Aprobación Parcial)`;
+            } else {
+                progressBar.className = "bg-red-500 h-full transition-all duration-500";
+                document.getElementById('safety-score').innerText = `${scoreDisplay}% (Riesgo Crítico)`;
+            }
+
+            announceState(`Progreso de inocuidad actualizado: ${scoreDisplay}%.`);
+        }
+
+        function habilitarFinGuia() {
+            const nextBtn = document.getElementById('btn-next-sim');
+            nextBtn.removeAttribute('disabled');
+            nextBtn.className = "w-full py-3 bg-sena-orange hover:bg-sena-orange/90 text-white font-bold text-sm rounded-xl shadow-lg transition duration-200 flex items-center justify-center gap-2 animate-pulse";
+            nextBtn.querySelector('i').className = "fa-solid fa-arrow-right text-xs";
+            announceState("Inspección finalizada. Presione Obtener Insignia para finalizar el entrenamiento.");
+        }
+
+        function finalizarGuia() {
+            // Mostrar Modal con la Insignia Digital (Gagné 9)
+            document.getElementById('modal-insignia').classList.remove('hidden');
+            announceState("¡Felicidades! Se ha emitido tu insignia oficial del SENA de competencia técnica en BPM.");
+        }
+
+        /**
+         * RETENCIÓN Y LOGROS (Insignia)
+         */
+        function shareAchievement() {
+            const shareText = `¡He certificado mis competencias en Buenas Prácticas de Manufactura (BPM) del Decreto 3075 en el Técnico de Panadería del SENA con un índice de inocuidad del ${Math.round(AppState.safetyScore)}%!`;
+            
+            const tempInput = document.createElement("textarea");
+            tempInput.value = shareText;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand("copy");
+            document.body.removeChild(tempInput);
+
+            alert("¡Logro copiado al portapapeles! Listo para compartir en LinkedIn o plataformas del SENA.");
+        }
+
+        /**
+         * REINICIAR TODO EL ESTADO
+         */
+        function restartAll() {
+            document.getElementById('modal-insignia').classList.add('hidden');
+
+            AppState.safetyScore = 0;
+            AppState.formativa.answers = {};
+            AppState.decisiones.answers = {};
+
+            // Resetear formularios de la Fase 2
+            document.getElementById('resumen-errores-container').classList.add('hidden');
+            document.getElementById('btn-finalizar-m2').setAttribute('disabled', 'true');
+            document.getElementById('btn-finalizar-m2').onclick = function() { finalizarMicro2(); };
+            document.getElementById('btn-finalizar-m2').className = "px-6 py-3 bg-slate-700 text-slate-400 font-bold text-xs rounded-xl transition cursor-not-allowed flex items-center gap-2";
+            document.getElementById('btn-finalizar-m2').querySelector('span').innerText = "Finalizar Fase 2";
+            document.getElementById('btn-finalizar-m2').querySelector('i').className = "fa-solid fa-lock text-[10px]";
+
+            document.querySelectorAll('.question-container').forEach((block, idx) => {
+                const qNum = idx + 1;
+                block.querySelectorAll('label').forEach((lbl, optionIdx) => {
+                    lbl.className = "flex items-start gap-3 p-3 border border-slate-200 rounded-xl hover:bg-slate-50 transition cursor-pointer text-xs font-medium";
+                    const radio = lbl.querySelector('input');
+                    radio.checked = false;
+                    radio.removeAttribute('disabled');
+                });
+                document.getElementById(`formativa-fdb-${qNum}`).classList.add('hidden');
+            });
+
+            // Resetear Simulador Fase 3
+            document.getElementById('escenario-bloque-1').classList.remove('hidden');
+            document.getElementById('escenario-bloque-2').classList.add('hidden');
+            document.getElementById('escenario-bloque-3').classList.add('hidden');
+            document.getElementById('decision-feedback').classList.add('hidden');
+
+            document.querySelectorAll('[id^="escenario-bloque-"]').forEach((block, idx) => {
+                const scenNum = idx + 1;
+                block.querySelectorAll('.decision-btn').forEach((btn, btnIdx) => {
+                    const optionChar = btnIdx === 0 ? 'A' : btnIdx === 1 ? 'B' : 'C';
+                    btn.className = "decision-btn w-full p-4 border border-slate-200 hover:bg-slate-100 bg-white text-left text-xs font-medium rounded-xl transition flex items-center justify-between";
+                    btn.setAttribute('onclick', `selectDecision(${scenNum}, '${optionChar}', this)`);
+                    btn.querySelector('i').className = "fa-regular fa-square text-slate-400";
+                });
+            });
+
+            document.getElementById('safety-progress-bar').style.width = "0%";
+            document.getElementById('safety-progress-bar').setAttribute('aria-valuenow', 0);
+            document.getElementById('safety-score').innerText = "0% (Inocuidad Nula)";
+            document.getElementById('sim-history').innerHTML = `<p class="text-slate-400"><i class="fa-solid fa-spinner fa-spin mr-1"></i> Esperando toma de decisiones frente a los hallazgos...</p>`;
+
+            const nextSimBtn = document.getElementById('btn-next-sim');
+            nextSimBtn.setAttribute('disabled', 'true');
+            nextSimBtn.className = "w-full py-3 bg-slate-700 text-slate-400 font-bold text-sm rounded-xl cursor-not-allowed transition duration-200 flex items-center justify-center gap-2";
+            nextSimBtn.querySelector('i').className = "fa-solid fa-lock text-xs";
+
+            // Limpiar selección de fase 1
+            document.querySelectorAll('.prior-btn').forEach(btn => {
+                btn.className = "prior-btn p-3 bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-xl text-left text-xs font-medium transition duration-200 flex items-start gap-2";
+            });
+            document.getElementById('prior-feedback').classList.add('hidden');
+
+            navigatePhase(1);
+        }
+    </script>
+</body>
+</html>
